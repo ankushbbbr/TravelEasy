@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -170,7 +171,11 @@ public class MainActivity extends AppCompatActivity
 
         intent.putExtra(Constants.INTENT_FLIGHT_SRC_IATA_CODE,src_flight);
         intent.putExtra(Constants.INTENT_FLIGHT_DEST_IATA_CODE,dest_flight);
-
+        if(date.length() == 0 || src_flight.length() == 0 || dest_flight.length() == 0
+                || src_train.length()==0 || dest_train.length() == 0){
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
+            return;
+        }
         startActivity(intent);
 //                int size= srcAutoTvTrain.getAdapter().getCount();
 //                Log.i(TAG,""+ size);
