@@ -1,5 +1,6 @@
 package com.example.ankush.traveleasy;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,6 +96,12 @@ public class TransportListActivity extends AppCompatActivity {
     }
 
     private void fetchFlightsFromNetwork(String src,String dest,String date){
+        final ProgressDialog mp=new ProgressDialog(this);
+        mp.setIndeterminate(true);
+        mp.setMessage(" Loading ");
+        mp.show();
+
+
         Log.i(TAG, "fetchFlightsFromNetwork: ");
         ApiServiceFlight service= ApiClientFlight.getService();
         Call<FlightResponse> call=service.searchFlight(Constants.FLIGHT_API_ID,Constants.FLIGHT_API_KEY,
@@ -105,7 +112,8 @@ public class TransportListActivity extends AppCompatActivity {
                 // FlightResponse.Data data = FlightResponse.getData();
                 //ArrayList<FlightResponse.Data.Flight> retflights=data.getreturn();
                 Log.i(TAG, response.raw().request().url()+"");
-
+                     if(mp.isShowing())
+                         mp.dismiss();
                 FlightResponse.Data maindata=response.body().data;
                 ArrayList<FlightResponse.Data.Flight> itemlist=maindata.returnflights;
                 if(itemlist==null)
