@@ -48,7 +48,7 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.suggestion_dropdown, parent, false);
         }
-        Log.i(TAG, "getView: "+mStations.get(position));
+        //Log.i(TAG, "getView: "+mStations.get(position));
         TextView tv=(TextView) convertView.findViewById(R.id.suggestion_textView);
         tv.setText((String)getItem(position));
         return convertView;
@@ -138,16 +138,15 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
         SQLiteDatabase db = openHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM station " +
                 "WHERE name like '%" +station_name+"%'",null);
-        Log.i(TAG, "count " + c.getCount());
+        //Log.i(TAG, "count " + c.getCount());
         mStations.clear();
         while(c.moveToNext()){
             String name = c.getString(c.getColumnIndex("name"));
             String code = c.getString(c.getColumnIndex("code"));
-            Log.i(TAG, "findStationsFromDatabase: "+name);
+           // Log.i(TAG, "findStationsFromDatabase: "+name);
             mStations.add(code + ": "+name);
             retVal.add(code + ": "+name);
         }
-        notifyDataSetChanged();
         return retVal;
     }
 }

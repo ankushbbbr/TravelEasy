@@ -25,7 +25,7 @@
             android:textSize="25dp"
             android:gravity="center"/>
 
-        <com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView
+        <AutoCompleteTextView
             android:id="@+id/from_auto_textbox_train"
             android:inputType="textCapSentences"
             android:layout_width="0dp"
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:textSize="25dp"
             android:gravity="center"/>
-        <com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView
+        <AutoCompleteTextView
             android:id="@+id/to_auto_textbox_train"
             android:inputType="textCapSentences"
             android:layout_width="0dp"
