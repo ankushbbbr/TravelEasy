@@ -1,4 +1,4 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.ApiResponse;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,6 +9,6 @@ import java.util.ArrayList;
  */
 
 public class AirportAutoCompleteResponse {
-    String value;
-    String label;
+    public String value;
+    public String label;
 }

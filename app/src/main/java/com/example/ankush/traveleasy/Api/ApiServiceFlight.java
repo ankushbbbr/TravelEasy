@@ -1,8 +1,9 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.Api;
+
+import com.example.ankush.traveleasy.ApiResponse.FlightResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**

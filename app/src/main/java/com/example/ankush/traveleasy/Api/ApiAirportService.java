@@ -1,10 +1,11 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.Api;
+
+import com.example.ankush.traveleasy.ApiResponse.AirportAutoCompleteResponse;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -16,5 +17,4 @@ public interface ApiAirportService {
     Call<ArrayList<AirportAutoCompleteResponse>> getAirportSuggestions(@Query("apikey") String apikey,
                                                                        @Query("term") String term,
                                                                        @Query("country") String country);
-
 }

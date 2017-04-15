@@ -21,6 +21,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ankush.traveleasy.AutoComplete.AirportAutoCompleteAdapter;
+import com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView;
+import com.example.ankush.traveleasy.AutoComplete.StationAutoCompleteAdapter;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -177,7 +181,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         startActivity(intent);
-//                int size= srcAutoTvTrain.getAdapter().getCount();
+//                int size= srcAutoTvTrain. getAdapter().getCount();
 //                Log.i(TAG,""+ size);
 //                if(size>0)
 //                Log.i(TAG, ""+ srcAutoTvTrain.getAdapter().getItem(size-1));

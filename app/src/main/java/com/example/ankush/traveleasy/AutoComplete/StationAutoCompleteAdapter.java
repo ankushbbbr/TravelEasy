@@ -1,23 +1,25 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.AutoComplete;
 
 import android.content.Context;
-import android.hardware.camera2.params.StreamConfigurationMap;
-import android.os.Build;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.example.ankush.traveleasy.Api.ApiClient;
+import com.example.ankush.traveleasy.Api.ApiRailwayService;
+import com.example.ankush.traveleasy.ApiResponse.StationAutoCompleteResponse;
+import com.example.ankush.traveleasy.BuildConfig;
+import com.example.ankush.traveleasy.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +75,7 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
                 FilterResults filterResults = new FilterResults();
                 if (constraint != null) {
                     ArrayList<String> newal=new ArrayList<>();
-                    newal = findStations(mContext, constraint.toString());
+                    newal = findStationsFromDatabase(mContext, constraint.toString());
 //                    mStations.clear();
 //                    mStations.addAll(newal);
                     Log.i(TAG, "performFiltering: "+newal.size()+" , "+mStations.size());
@@ -95,9 +97,9 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
         return filter;
     }
 
-    private ArrayList<String> findStations(Context context, String station_name) {
+    private ArrayList<String> findStationsFromNetwork(Context context, String station_name) {
         final ArrayList<String> retVal = new ArrayList<>();
-        ApiService service = ApiClient.getService();
+        ApiRailwayService service = ApiClient.getService();
         Call<StationAutoCompleteResponse> call=service.getStationSuggestions(station_name, BuildConfig.RailwayApiKey);
         call.enqueue(new Callback<StationAutoCompleteResponse>() {
             @Override
@@ -126,6 +128,26 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
                 Log.i(TAG, "onFailure: ");
             }
         });
+        return retVal;
+    }
+    private ArrayList<String> findStationsFromDatabase(Context context, String station_name) {
+        Log.i(TAG, "findStationsFromDatabase: called");
+        Log.i(TAG, station_name);
+        final ArrayList<String> retVal = new ArrayList<>();
+        DatabaseOpenHelper openHelper = new DatabaseOpenHelper(context);
+        SQLiteDatabase db = openHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM station " +
+                "WHERE name like '%" +station_name+"%'",null);
+        Log.i(TAG, "count " + c.getCount());
+        mStations.clear();
+        while(c.moveToNext()){
+            String name = c.getString(c.getColumnIndex("name"));
+            String code = c.getString(c.getColumnIndex("code"));
+            Log.i(TAG, "findStationsFromDatabase: "+name);
+            mStations.add(code + ": "+name);
+            retVal.add(code + ": "+name);
+        }
+        notifyDataSetChanged();
         return retVal;
     }
 }

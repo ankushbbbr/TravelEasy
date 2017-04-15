@@ -1,4 +1,4 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.ApiResponse;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,11 +9,13 @@ import java.util.ArrayList;
  */
 
 public class StationAutoCompleteResponse {
-    class Station{
-        String code;
+    public class Station{
+        public String code;
         @SerializedName("fullname")
+        public
         String name;
     }
     @SerializedName("station")
+    public
     ArrayList<Station> station;
 }

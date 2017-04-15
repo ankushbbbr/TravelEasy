@@ -1,4 +1,6 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.Api;
+
+import com.example.ankush.traveleasy.Constants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -8,13 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    static ApiService service;
+    static ApiRailwayService service;
 
-    public static ApiService getService() {
+    public static ApiRailwayService getService() {
         if(service==null){
             Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.RAILWAY_API_BASE_URL).
                     addConverterFactory(GsonConverterFactory.create()).build();
-            service =retrofit.create(ApiService.class);
+            service =retrofit.create(ApiRailwayService.class);
         }
         return service;
     }

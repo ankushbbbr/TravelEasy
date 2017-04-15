@@ -1,4 +1,4 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.AutoComplete;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -10,6 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import com.example.ankush.traveleasy.Api.ApiAirportClient;
+import com.example.ankush.traveleasy.Api.ApiAirportService;
+import com.example.ankush.traveleasy.ApiResponse.AirportAutoCompleteResponse;
+import com.example.ankush.traveleasy.Constants;
+import com.example.ankush.traveleasy.R;
 
 import java.util.ArrayList;
 

@@ -9,6 +9,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.ankush.traveleasy.Api.ApiClient;
+import com.example.ankush.traveleasy.Api.ApiClientFlight;
+import com.example.ankush.traveleasy.Api.ApiRailwayService;
+import com.example.ankush.traveleasy.Api.ApiServiceFlight;
+import com.example.ankush.traveleasy.ApiResponse.FlightResponse;
+import com.example.ankush.traveleasy.ApiResponse.TrainBetweenStationsResponse;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,8 +23,6 @@ import java.util.Comparator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.example.ankush.traveleasy.ApiClient.service;
 
 public class TransportListActivity extends AppCompatActivity {
     ListView listView;
@@ -91,7 +96,7 @@ public class TransportListActivity extends AppCompatActivity {
 
     private void fetchFlightsFromNetwork(String src,String dest,String date){
         Log.i(TAG, "fetchFlightsFromNetwork: ");
-        ApiServiceFlight service=ApiClientFlight.getService();
+        ApiServiceFlight service= ApiClientFlight.getService();
         Call<FlightResponse> call=service.searchFlight(Constants.FLIGHT_API_ID,Constants.FLIGHT_API_KEY,
                 "json",dest,src,date,date,"E","1","0","0","100");
         call.enqueue(new Callback<FlightResponse>() {
@@ -153,7 +158,7 @@ public class TransportListActivity extends AppCompatActivity {
     private void fetchTrainsFromNetwork(String src,String dest,String date) {
         Log.i(TAG, "fetchTrainsFromNetwork: ");
         //Log.i(TAG, "source ="+src + ", dest = "+dest + "date = ,"+date);
-        ApiService service = ApiClient.getService();
+        ApiRailwayService service = ApiClient.getService();
         Call<TrainBetweenStationsResponse> call=service.searchTrainBetween(src,dest,date,BuildConfig.RailwayApiKey);
         call.enqueue(new Callback<TrainBetweenStationsResponse>() {
             @Override

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.example.ankush.traveleasy"
         minSdkVersion 19
@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         debug{
-            buildConfigField "String", "RailwayApiKey", "\"7u6sfoi3\""
+            buildConfigField "String", "RailwayApiKey", "\"deaurvtg\""
             buildConfigField "String", "RailwayApiKey2", "\"6lcib96q\""
             minifyEnabled false
             applicationIdSuffix ".debug"
@@ -35,4 +35,5 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 }

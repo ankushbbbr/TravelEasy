@@ -1,4 +1,6 @@
-package com.example.ankush.traveleasy;
+package com.example.ankush.traveleasy.Api;
+
+import com.example.ankush.traveleasy.Constants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
