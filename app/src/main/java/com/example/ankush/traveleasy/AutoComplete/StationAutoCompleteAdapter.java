@@ -137,7 +137,7 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
         DatabaseOpenHelper openHelper = new DatabaseOpenHelper(context);
         SQLiteDatabase db = openHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM station " +
-                "WHERE name like '%" +station_name+"%'",null);
+                "WHERE name like '" +station_name+"%'",null);
         //Log.i(TAG, "count " + c.getCount());
         mStations.clear();
         while(c.moveToNext()){
@@ -146,6 +146,17 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
            // Log.i(TAG, "findStationsFromDatabase: "+name);
             mStations.add(code + ": "+name);
             retVal.add(code + ": "+name);
+        }
+        c = db.rawQuery("SELECT * FROM station " +
+                "WHERE name like '%" +station_name+"%'",null);
+        while(c.moveToNext()){
+            String name = c.getString(c.getColumnIndex("name"));
+            String code = c.getString(c.getColumnIndex("code"));
+            // Log.i(TAG, "findStationsFromDatabase: "+name);
+            if(!mStations.contains(code + ": "+name)) {
+                mStations.add(code + ": " + name);
+                retVal.add(code + ": " + name);
+            }
         }
         return retVal;
     }

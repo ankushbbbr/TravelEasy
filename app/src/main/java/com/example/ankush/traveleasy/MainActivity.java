@@ -164,31 +164,31 @@ public class MainActivity extends AppCompatActivity
 
     }
     private void doSearch(){
-//        String src_train= srcAutoTvTrain.getText().toString();
-//        String dest_train= destAutoTvTrain.getText().toString();
-//        String date=dateEditText.getText().toString();
-//        String src_flight = flightSrcEditText.getText().toString();
-//        String dest_flight = flightDestEditText.getText().toString();
-//
-//        Intent intent = new Intent();
-//        intent.setClass(MainActivity.this,TransportListActivity.class);
-//        intent.putExtra(Constants.INTENT_TRAIN_SRC_STATION_CODE,src_train);
-//        intent.putExtra(Constants.INTENT_TRAIN_DEST_STATION_CODE,dest_train);
-//        intent.putExtra(Constants.INTENT_TRAIN_DATE,date);
-//
-//        intent.putExtra(Constants.INTENT_FLIGHT_SRC_IATA_CODE,src_flight);
-//        intent.putExtra(Constants.INTENT_FLIGHT_DEST_IATA_CODE,dest_flight);
-//        if(date.length() == 0 || src_flight.length() == 0 || dest_flight.length() == 0
-//                || src_train.length()==0 || dest_train.length() == 0){
-//            Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        startActivity(intent);
-        int size= srcAutoTvTrain.getAdapter().getCount();
-        Log.i(TAG,""+ size);
-        if(size>0)
-        Log.i(TAG, ""+ srcAutoTvTrain.getAdapter().getItem(size-1));
-        s.notifyDataSetChanged();
+        String src_train= srcAutoTvTrain.getText().toString();
+        String dest_train= destAutoTvTrain.getText().toString();
+        String date=dateEditText.getText().toString();
+        String src_flight = flightSrcEditText.getText().toString();
+        String dest_flight = flightDestEditText.getText().toString();
+
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this,TransportListActivity.class);
+        intent.putExtra(Constants.INTENT_TRAIN_SRC_STATION_CODE,src_train);
+        intent.putExtra(Constants.INTENT_TRAIN_DEST_STATION_CODE,dest_train);
+        intent.putExtra(Constants.INTENT_TRAIN_DATE,date);
+
+        intent.putExtra(Constants.INTENT_FLIGHT_SRC_IATA_CODE,src_flight);
+        intent.putExtra(Constants.INTENT_FLIGHT_DEST_IATA_CODE,dest_flight);
+        if(date.length() == 0 || src_flight.length() == 0 || dest_flight.length() == 0
+                || src_train.length()==0 || dest_train.length() == 0){
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        startActivity(intent);
+//        int size= srcAutoTvTrain.getAdapter().getCount();
+//        Log.i(TAG,""+ size);
+//        if(size>0)
+//        Log.i(TAG, ""+ srcAutoTvTrain.getAdapter().getItem(size-1));
+//        s.notifyDataSetChanged();
     }
     private void updateLabel() {
 
