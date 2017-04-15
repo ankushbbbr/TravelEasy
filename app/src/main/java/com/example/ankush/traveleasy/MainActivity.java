@@ -3,7 +3,6 @@ package com.example.ankush.traveleasy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,11 +34,10 @@ public class MainActivity extends AppCompatActivity
     EditText dateEditText;
     Button searchButton;
     Calendar myCalendar;
-    AutoCompleteTextView srcAutoTvTrain;
-    AutoCompleteTextView destAutoTvTrain;
+    DelayAutoCompleteTextView srcAutoTvTrain;
+    DelayAutoCompleteTextView destAutoTvTrain;
     DelayAutoCompleteTextView flightSrcEditText;
     DelayAutoCompleteTextView flightDestEditText;
-    StationAutoCompleteAdapter s;
     boolean isDateSet = false;
     String TAG="MainActivityTag";
     @Override
@@ -61,8 +58,7 @@ public class MainActivity extends AppCompatActivity
         findViews();
         myCalendar = Calendar.getInstance();
         srcAutoTvTrain.setThreshold(3);
-        s = new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown);
-        srcAutoTvTrain.setAdapter(s);
+        srcAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
 //        srcAutoTvTrain.setLoadingIndicator(
 //                (android.widget.ProgressBar) findViewById(R.id.pb_loading_indicator));
         srcAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,6 +69,7 @@ public class MainActivity extends AppCompatActivity
                 srcAutoTvTrain.setText(stnCode);
             }
         });
+
         destAutoTvTrain.setThreshold(3);
         destAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
         destAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -159,8 +156,8 @@ public class MainActivity extends AppCompatActivity
         searchButton= (Button)findViewById(R.id.button_search);
         flightSrcEditText= (DelayAutoCompleteTextView) findViewById(R.id.from_auto_textbox_flight);
         flightDestEditText=(DelayAutoCompleteTextView) findViewById(R.id.to_auto_textbox_flight);
-        srcAutoTvTrain = (AutoCompleteTextView) findViewById(R.id.from_auto_textbox_train);
-        destAutoTvTrain = (AutoCompleteTextView)findViewById(R.id.to_auto_textbox_train);
+        srcAutoTvTrain = (DelayAutoCompleteTextView) findViewById(R.id.from_auto_textbox_train);
+        destAutoTvTrain = (DelayAutoCompleteTextView)findViewById(R.id.to_auto_textbox_train);
 
     }
     private void doSearch(){
@@ -184,11 +181,10 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         startActivity(intent);
-//        int size= srcAutoTvTrain.getAdapter().getCount();
-//        Log.i(TAG,""+ size);
-//        if(size>0)
-//        Log.i(TAG, ""+ srcAutoTvTrain.getAdapter().getItem(size-1));
-//        s.notifyDataSetChanged();
+//                int size= srcAutoTvTrain. getAdapter().getCount();
+//                Log.i(TAG,""+ size);
+//                if(size>0)
+//                Log.i(TAG, ""+ srcAutoTvTrain.getAdapter().getItem(size-1));
     }
     private void updateLabel() {
 
