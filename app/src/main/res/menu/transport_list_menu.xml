@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_sort_duration"
+        android:orderInCategory="100"
+        android:title="Sort by Duration"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_sort_time"
+        android:orderInCategory="200"
+        android:title="Sort by Departure time"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_sort_price"
+        android:orderInCategory="300"
+        android:title="Sort by Price"
+        app:showAsAction="never" />
+</menu>

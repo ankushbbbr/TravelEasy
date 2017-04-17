@@ -1,16 +1,12 @@
 package com.example.ankush.traveleasy;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.media.Image;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -62,9 +58,9 @@ public class TransportAdapter extends ArrayAdapter<Transport>
         Transport curr= mTransports.get(position);
         ViewHolder vh=(ViewHolder)convertView.getTag();
         vh.nameTextView.setText(curr.name);
-        vh.timeTextView.setText(curr.departure_time + " - " + curr.arrival_time);
-        vh.durationTextView.setText(curr.travel_time);
-        vh.priceTextView.setText("Price = \n₹ " + curr.fare);
+        vh.timeTextView.setText(curr.departureTime + " - " + curr.arrivalTime);
+        vh.durationTextView.setText(curr.travelTime);
+        vh.priceTextView.setText("Price = \n₹ " + curr.averageFare);
         if(curr.type == Constants.TRANSPORT_TYPE_TRAIN)
             vh.iconImageView.setImageResource(R.drawable.train_logo);
         else if(curr.type == Constants.TRANSPORT_TYPE_FLIGHT)

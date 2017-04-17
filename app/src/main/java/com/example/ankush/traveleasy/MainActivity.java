@@ -3,6 +3,7 @@ package com.example.ankush.traveleasy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -34,10 +36,11 @@ public class MainActivity extends AppCompatActivity
     EditText dateEditText;
     Button searchButton;
     Calendar myCalendar;
-    DelayAutoCompleteTextView srcAutoTvTrain;
-    DelayAutoCompleteTextView destAutoTvTrain;
+    AutoCompleteTextView srcAutoTvTrain;
+    AutoCompleteTextView destAutoTvTrain;
     DelayAutoCompleteTextView flightSrcEditText;
     DelayAutoCompleteTextView flightDestEditText;
+    StationAutoCompleteAdapter s;
     boolean isDateSet = false;
     String TAG="MainActivityTag";
     @Override
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity
         findViews();
         myCalendar = Calendar.getInstance();
         srcAutoTvTrain.setThreshold(3);
-        srcAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
+        s = new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown);
+        srcAutoTvTrain.setAdapter(s);
 //        srcAutoTvTrain.setLoadingIndicator(
 //                (android.widget.ProgressBar) findViewById(R.id.pb_loading_indicator));
         srcAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity
                 srcAutoTvTrain.setText(stnCode);
             }
         });
-
         destAutoTvTrain.setThreshold(3);
         destAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
         destAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -156,8 +159,8 @@ public class MainActivity extends AppCompatActivity
         searchButton= (Button)findViewById(R.id.button_search);
         flightSrcEditText= (DelayAutoCompleteTextView) findViewById(R.id.from_auto_textbox_flight);
         flightDestEditText=(DelayAutoCompleteTextView) findViewById(R.id.to_auto_textbox_flight);
-        srcAutoTvTrain = (DelayAutoCompleteTextView) findViewById(R.id.from_auto_textbox_train);
-        destAutoTvTrain = (DelayAutoCompleteTextView)findViewById(R.id.to_auto_textbox_train);
+        srcAutoTvTrain = (AutoCompleteTextView) findViewById(R.id.from_auto_textbox_train);
+        destAutoTvTrain = (AutoCompleteTextView)findViewById(R.id.to_auto_textbox_train);
 
     }
     private void doSearch(){
@@ -181,10 +184,6 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         startActivity(intent);
-//                int size= srcAutoTvTrain. getAdapter().getCount();
-//                Log.i(TAG,""+ size);
-//                if(size>0)
-//                Log.i(TAG, ""+ srcAutoTvTrain.getAdapter().getItem(size-1));
     }
     private void updateLabel() {
 
@@ -205,45 +204,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

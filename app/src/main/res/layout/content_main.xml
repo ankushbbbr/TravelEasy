@@ -27,7 +27,7 @@
 
         <com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView
             android:id="@+id/from_auto_textbox_train"
-            android:inputType="textCapSentences"
+            android:inputType="textCapCharacters"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:gravity="center"/>
         <com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView
             android:id="@+id/to_auto_textbox_train"
-            android:inputType="textCapSentences"
+            android:inputType="textCapCharacters"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
@@ -73,12 +73,13 @@
 
         <com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView
             android:id="@+id/from_auto_textbox_flight"
-            android:inputType="textCapSentences"
+            android:inputType="textCapCharacters"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
             android:visibility="visible"
+
             android:hint="Flight"
             android:imeOptions="flagNoExtractUi|actionSearch"/>
     </LinearLayout>
@@ -96,7 +97,7 @@
             android:gravity="center"/>
         <com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView
             android:id="@+id/to_auto_textbox_flight"
-            android:inputType="textCapSentences"
+            android:inputType="textCapCharacters"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"

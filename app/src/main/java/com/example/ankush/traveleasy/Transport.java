@@ -1,6 +1,5 @@
 package com.example.ankush.traveleasy;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -12,14 +11,15 @@ public class Transport {
     String name;
     String number;
     ArrayList<String> classes;
-    ArrayList<Float> fare;
+    ArrayList<Float> fares;
     String source;
     String destination;
-    String travel_time;
-    String departure_time;
-    String arrival_time;
+    String travelTime;
+    String departureTime;
+    String arrivalTime;
+    String averageFare;
     public Transport(){
         classes = new ArrayList<>();
-        fare = new ArrayList<>();
+        fares = new ArrayList<>();
     }
 }

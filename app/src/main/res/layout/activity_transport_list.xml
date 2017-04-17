@@ -14,27 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort (duration)"
-            android:layout_gravity="center"
-            android:id="@+id/button_sort_duration"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort (departure_time)"
-            android:layout_gravity="center"
-            android:id="@+id/button_sort_departure"
-            android:layout_toRightOf="@+id/button_sort_duration"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_height="wrap_content"
-            android:text="Sort (price)"
-            android:id="@+id/button_sort_price"
-            android:layout_gravity="center"
-            android:layout_below="@+id/button_sort_duration"/>
+
     </RelativeLayout>
 
     <ListView

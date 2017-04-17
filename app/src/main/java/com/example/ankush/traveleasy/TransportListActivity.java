@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,7 +30,6 @@ public class TransportListActivity extends AppCompatActivity {
     ArrayList<Transport> transports;
     TransportAdapter transportAdapter;
     final String TAG="TransportListTag";
-    Button button_sort_duration, button_sort_departure;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,43 +55,6 @@ public class TransportListActivity extends AppCompatActivity {
         String moddate="2017"+date.charAt(3)+date.charAt(4)+date.charAt(0)+date.charAt(1);  //YYYYMMDD
 
         fetchFlightsFromNetwork(src_flight,dest_flight,moddate);
-
-        button_sort_duration = (Button)findViewById(R.id.button_sort_duration);
-        button_sort_duration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.sort(transports, new Comparator<Transport>() {
-                    @Override
-                    public int compare(Transport t1, Transport t2) {
-                        int cmp = t1.travel_time.compareTo(t2.travel_time);
-                        if(cmp==0)
-                            return 0;
-                        else if(cmp > 0)
-                            return 1;
-                        return -1;
-                    }
-                });
-                transportAdapter.notifyDataSetChanged();
-            }
-        });
-        button_sort_departure = (Button)findViewById(R.id.button_sort_departure);
-        button_sort_departure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.sort(transports, new Comparator<Transport>() {
-                    @Override
-                    public int compare(Transport t1, Transport t2) {
-                        int cmp = t1.departure_time.compareTo(t2.departure_time);
-                        if(cmp==0)
-                            return 0;
-                        else if(cmp > 0)
-                            return 1;
-                        return -1;
-                    }
-                });
-                transportAdapter.notifyDataSetChanged();
-            }
-        });
     }
 
     private void fetchFlightsFromNetwork(String src,String dest,String date){
@@ -124,8 +86,8 @@ public class TransportListActivity extends AppCompatActivity {
                         t.type=Constants.TRANSPORT_TYPE_FLIGHT;
                         t.name=item.FlHash;
                         t.number=item.flightno;
-                        t.arrival_time=item.arrtime;
-                        t.departure_time=item.deptime;
+                        t.arrivalTime =item.arrtime;
+                        t.departureTime =item.deptime;
 
                         String token[]=item.duration.split("h |m");
                         for(int i=0;i<2;i++){
@@ -133,7 +95,7 @@ public class TransportListActivity extends AppCompatActivity {
                                 token[i]="0"+token[i];
                             }
                         }
-                        t.travel_time=token[0]+":"+token[1];
+                        t.travelTime =token[0]+":"+token[1];
                         t.source=item.origin;
                         t.destination=item.destination;
                        /* for(int i=0;i<item.size();i++){
@@ -143,7 +105,7 @@ public class TransportListActivity extends AppCompatActivity {
                             }
                         }*/
                         t.classes.add("E");
-                        t.fare.add((float) item.fare.grossamount);
+                        t.fares.add((float) item.fare.grossamount);
                         Log.i(TAG, "flight: "+t.name);
                         transports.add(t);
                     }
@@ -183,9 +145,9 @@ public class TransportListActivity extends AppCompatActivity {
                     t.name=item.name;
                     //Log.i(TAG, t.name);
                     t.number=item.number;
-                    t.arrival_time=item.dest_arrival_time;
-                    t.departure_time=item.src_departure_time;
-                    t.travel_time=item.travel_time;
+                    t.arrivalTime =item.dest_arrival_time;
+                    t.departureTime =item.src_departure_time;
+                    t.travelTime =item.travel_time;
                     t.source=item.from.name;
                     t.destination=item.to.name;
                     for(int i=0;i<item.classes.size();i++){
@@ -208,5 +170,55 @@ public class TransportListActivity extends AppCompatActivity {
                 Log.i(TAG, "onFailure: ");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.transport_list_menu,menu);
+        return true;
+    }
+    void sortByDuration(){
+        Collections.sort(transports, new Comparator<Transport>() {
+            @Override
+            public int compare(Transport t1, Transport t2) {
+                int cmp = t1.travelTime.compareTo(t2.travelTime);
+                if(cmp==0)
+                    return 0;
+                else if(cmp > 0)
+                    return 1;
+                return -1;
+            }
+        });
+        transportAdapter.notifyDataSetChanged();
+    }
+    void sortByDepartureTime(){
+        Collections.sort(transports, new Comparator<Transport>() {
+            @Override
+            public int compare(Transport t1, Transport t2) {
+                int cmp = t1.departureTime.compareTo(t2.departureTime);
+                if(cmp==0)
+                    return 0;
+                else if(cmp > 0)
+                    return 1;
+                return -1;
+            }
+        });
+        transportAdapter.notifyDataSetChanged();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.menu_sort_duration){
+            sortByDuration();
+            return true;
+        }
+        else if(id == R.id.menu_sort_price){
+            return true;
+        }
+        else if(id == R.id.menu_sort_time){
+            sortByDepartureTime();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
