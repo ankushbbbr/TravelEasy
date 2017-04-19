@@ -1,6 +1,8 @@
 package com.example.ankush.traveleasy.AutoComplete;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,7 +75,7 @@ public class AirportAutoCompleteAdapter extends ArrayAdapter<String> implements 
                 FilterResults filterResults = new FilterResults();
                 if (constraint != null) {
                     ArrayList<String> newal=new ArrayList<>();
-                    newal = findAirports(mContext, constraint.toString());
+                    newal = findAirportsFromDatabase(mContext, constraint.toString());
 //                    mStations.clear();
 //                    mStations.addAll(newal);
                     Log.i(TAG, "performFiltering: "+newal.size()+" , "+mStations.size());
@@ -131,6 +133,26 @@ public class AirportAutoCompleteAdapter extends ArrayAdapter<String> implements 
 
 
         });
+        return retVal;
+    }
+    private ArrayList<String> findAirportsFromDatabase(Context context, String station_name) {
+        Log.i(TAG, "findAiprortsFromDatabase: called");
+        Log.i(TAG, station_name);
+        final ArrayList<String> retVal = new ArrayList<>();
+        DatabaseOpenHelper openHelper = new DatabaseOpenHelper(context);
+        SQLiteDatabase db = openHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM airport " +
+                "WHERE name like '%" +station_name+"%'",null);
+        Log.i(TAG, "count " + c.getCount());
+        mStations.clear();
+        while(c.moveToNext()){
+            String name = c.getString(c.getColumnIndex("name"));
+            String code = c.getString(c.getColumnIndex("code"));
+            Log.i(TAG, "findAirportsFromDatabase: "+name);
+            mStations.add(code + ": "+name);
+            retVal.add(code + ": "+name);
+        }
+        notifyDataSetChanged();
         return retVal;
     }
 }
