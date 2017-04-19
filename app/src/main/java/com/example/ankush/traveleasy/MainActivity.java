@@ -3,7 +3,6 @@ package com.example.ankush.traveleasy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ankush.traveleasy.AutoComplete.AirportAutoCompleteAdapter;
-import com.example.ankush.traveleasy.AutoComplete.DelayAutoCompleteTextView;
 import com.example.ankush.traveleasy.AutoComplete.StationAutoCompleteAdapter;
 
 import java.text.SimpleDateFormat;
@@ -38,8 +36,8 @@ public class MainActivity extends AppCompatActivity
     Calendar myCalendar;
     AutoCompleteTextView srcAutoTvTrain;
     AutoCompleteTextView destAutoTvTrain;
-    DelayAutoCompleteTextView flightSrcEditText;
-    DelayAutoCompleteTextView flightDestEditText;
+    AutoCompleteTextView flightSrcEditText;
+    AutoCompleteTextView flightDestEditText;
     StationAutoCompleteAdapter s;
     boolean isDateSet = false;
     String TAG="MainActivityTag";
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         findViews();
         myCalendar = Calendar.getInstance();
-        srcAutoTvTrain.setThreshold(3);
+        srcAutoTvTrain.setThreshold(2);
         s = new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown);
         srcAutoTvTrain.setAdapter(s);
 //        srcAutoTvTrain.setLoadingIndicator(
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity
                 srcAutoTvTrain.setText(stnCode);
             }
         });
-        destAutoTvTrain.setThreshold(3);
+        destAutoTvTrain.setThreshold(2);
         destAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
         destAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                 flightSrcEditText.setText(stnCode);
             }
         });
-        flightDestEditText.setThreshold(3);
+        flightDestEditText.setThreshold(1);
         flightDestEditText.setAdapter(new AirportAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
         flightDestEditText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -157,8 +155,8 @@ public class MainActivity extends AppCompatActivity
     private void findViews(){
         dateEditText = (EditText)findViewById(R.id.edittext_date);
         searchButton= (Button)findViewById(R.id.button_search);
-        flightSrcEditText= (DelayAutoCompleteTextView) findViewById(R.id.from_auto_textbox_flight);
-        flightDestEditText=(DelayAutoCompleteTextView) findViewById(R.id.to_auto_textbox_flight);
+        flightSrcEditText= (AutoCompleteTextView) findViewById(R.id.from_auto_textbox_flight);
+        flightDestEditText=(AutoCompleteTextView) findViewById(R.id.to_auto_textbox_flight);
         srcAutoTvTrain = (AutoCompleteTextView) findViewById(R.id.from_auto_textbox_train);
         destAutoTvTrain = (AutoCompleteTextView)findViewById(R.id.to_auto_textbox_train);
 
@@ -186,7 +184,6 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
     private void updateLabel() {
-
         String myFormat = "dd-MM";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
@@ -221,7 +218,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

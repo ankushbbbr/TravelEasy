@@ -129,9 +129,6 @@ public class AirportAutoCompleteAdapter extends ArrayAdapter<String> implements 
             public void onFailure(Call<ArrayList<AirportAutoCompleteResponse>> call, Throwable t) {
                 Log.i(TAG, "onFailure: "+t.getMessage());
             }
-
-
-
         });
         return retVal;
     }
@@ -152,7 +149,6 @@ public class AirportAutoCompleteAdapter extends ArrayAdapter<String> implements 
             mStations.add(code + ": "+name);
             retVal.add(code + ": "+name);
         }
-        notifyDataSetChanged();
         return retVal;
     }
 }

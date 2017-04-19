@@ -147,7 +147,6 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
             mStations.add(code + ": "+name);
             retVal.add(code + ": "+name);
         }
-        notifyDataSetChanged();
         return retVal;
     }
 }
