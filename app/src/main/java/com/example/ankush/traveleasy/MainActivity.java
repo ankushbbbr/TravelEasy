@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity
     AutoCompleteTextView destAutoTvTrain;
     AutoCompleteTextView flightSrcEditText;
     AutoCompleteTextView flightDestEditText;
-    StationAutoCompleteAdapter s;
     boolean isDateSet = false;
     String TAG="MainActivityTag";
     @Override
@@ -59,8 +58,7 @@ public class MainActivity extends AppCompatActivity
         findViews();
         myCalendar = Calendar.getInstance();
         srcAutoTvTrain.setThreshold(2);
-        s = new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown);
-        srcAutoTvTrain.setAdapter(s);
+        srcAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
 //        srcAutoTvTrain.setLoadingIndicator(
 //                (android.widget.ProgressBar) findViewById(R.id.pb_loading_indicator));
         srcAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
