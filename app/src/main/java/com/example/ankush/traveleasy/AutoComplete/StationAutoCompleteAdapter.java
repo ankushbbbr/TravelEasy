@@ -130,6 +130,7 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
         });
         return retVal;
     }
+
     private ArrayList<String> findStationsFromDatabase(Context context, String station_name) {
         Log.i(TAG, "findStationsFromDatabase: called");
         Log.i(TAG, station_name);
@@ -149,4 +150,5 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
         }
         return retVal;
     }
+
 }
