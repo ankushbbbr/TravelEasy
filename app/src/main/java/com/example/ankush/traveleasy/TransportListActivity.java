@@ -19,9 +19,11 @@ import com.example.ankush.traveleasy.Api.ApiServiceFlight;
 import com.example.ankush.traveleasy.ApiResponse.FlightResponse;
 import com.example.ankush.traveleasy.ApiResponse.TrainBetweenStationsResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,13 +57,11 @@ public class TransportListActivity extends AppCompatActivity {
         src_flight=intent.getStringExtra(Constants.INTENT_FLIGHT_SRC_IATA_CODE);
         dest_flight=intent.getStringExtra(Constants.INTENT_FLIGHT_DEST_IATA_CODE);
 
-        Log.i(TAG, "oncreate : source ="+src_train + ", dest = "+dest_train + "date = ,"+date);
-        
+        //Log.i(TAG, "oncreate : source ="+src_train + ", dest = "+dest_train + "date = ,"+date);
         fetchTrainsFromNetwork(src_train,dest_train,date);// date : dd-mm-yyyy
 
-        String moddate="2017"+date.charAt(3)+date.charAt(4)+date.charAt(0)+date.charAt(1);  //YYYYMMDD
-
-        fetchFlightsFromNetwork(src_flight,dest_flight,moddate);
+        String modDate = date.substring(6)+date.substring(3,5)+date.substring(0,2);  //YYYYMMDD
+        fetchFlightsFromNetwork(src_flight,dest_flight,modDate);
     }
 
     private void fetchFlightsFromNetwork(String src,String dest,String date){
