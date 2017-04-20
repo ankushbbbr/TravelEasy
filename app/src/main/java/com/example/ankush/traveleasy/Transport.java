@@ -11,15 +11,19 @@ public class Transport {
     String name;
     String number;
     ArrayList<String> classes;
-    ArrayList<Float> fares;
+    ArrayList<String> fares;
+    String date;
     String source;
     String destination;
+    String srcCode;
+    String destCode;
     String travelTime;
     String departureTime;
     String arrivalTime;
-    String averageFare;
+    String fare;
     public Transport(){
         classes = new ArrayList<>();
         fares = new ArrayList<>();
+        fare = "0";
     }
 }

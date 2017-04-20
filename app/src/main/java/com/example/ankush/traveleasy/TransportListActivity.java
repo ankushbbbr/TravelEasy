@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,7 +41,12 @@ public class TransportListActivity extends AppCompatActivity {
         transports=new ArrayList<>();
         transportAdapter = new TransportAdapter(this,transports);
         listView.setAdapter(transportAdapter);
-
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                transportAdapter.selectClassFromDialog(transports.get(position),transportAdapter.vi);
+//            }
+//        });
         String src_train,dest_train,date,src_flight,dest_flight;
         Intent intent = getIntent();
         src_train = intent.getStringExtra(Constants.INTENT_TRAIN_SRC_STATION_CODE);
@@ -50,7 +57,7 @@ public class TransportListActivity extends AppCompatActivity {
 
         Log.i(TAG, "oncreate : source ="+src_train + ", dest = "+dest_train + "date = ,"+date);
         
-        fetchTrainsFromNetwork(src_train,dest_train,date);
+        fetchTrainsFromNetwork(src_train,dest_train,date);// date : dd-mm-yyyy
 
         String moddate="2017"+date.charAt(3)+date.charAt(4)+date.charAt(0)+date.charAt(1);  //YYYYMMDD
 
@@ -105,7 +112,8 @@ public class TransportListActivity extends AppCompatActivity {
                             }
                         }*/
                         t.classes.add("E");
-                        t.fares.add((float) item.fare.grossamount);
+                        t.fares.add(item.fare.grossamount+"");
+                        t.fare = item.fare.grossamount+"";
                         Log.i(TAG, "flight: "+t.name);
                         transports.add(t);
                     }
@@ -125,11 +133,11 @@ public class TransportListActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchTrainsFromNetwork(String src,String dest,String date) {
+    private void fetchTrainsFromNetwork(String src,String dest,final String date) {
         Log.i(TAG, "fetchTrainsFromNetwork: ");
         //Log.i(TAG, "source ="+src + ", dest = "+dest + "date = ,"+date);
         ApiRailwayService service = ApiClient.getService();
-        Call<TrainBetweenStationsResponse> call=service.searchTrainBetween(src,dest,date,BuildConfig.RailwayApiKey);
+        Call<TrainBetweenStationsResponse> call=service.searchTrainBetween(src,dest,date.substring(0,5),BuildConfig.RailwayApiKey);
         call.enqueue(new Callback<TrainBetweenStationsResponse>() {
             @Override
             public void onResponse(Call<TrainBetweenStationsResponse> call, Response<TrainBetweenStationsResponse> response) {
@@ -150,6 +158,9 @@ public class TransportListActivity extends AppCompatActivity {
                     t.travelTime =item.travel_time;
                     t.source=item.from.name;
                     t.destination=item.to.name;
+                    t.srcCode = item.from.code;
+                    t.destCode = item.to.code;
+                    t.date = date;
                     for(int i=0;i<item.classes.size();i++){
                         TrainBetweenStationsResponse.Train.Classs c=item.classes.get(i);
                         if(c.available.equals("Y")){
@@ -205,6 +216,26 @@ public class TransportListActivity extends AppCompatActivity {
         });
         transportAdapter.notifyDataSetChanged();
     }
+    void sortByPrice(){
+        Collections.sort(transports, new Comparator<Transport>() {
+            @Override
+            public int compare(Transport t1, Transport t2) {
+                int f1=0,f2=0;
+                try {
+                    f1 = Integer.parseInt(t1.fare);
+                    f2 = Integer.parseInt(t2.fare);
+                }catch(NumberFormatException e){
+
+                }
+                if(f1 == f2)
+                    return 0;
+                else if(f1 > f2)
+                    return 1;
+                return -1;
+            }
+        });
+        transportAdapter.notifyDataSetChanged();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -213,6 +244,7 @@ public class TransportListActivity extends AppCompatActivity {
             return true;
         }
         else if(id == R.id.menu_sort_price){
+            sortByPrice();
             return true;
         }
         else if(id == R.id.menu_sort_time){

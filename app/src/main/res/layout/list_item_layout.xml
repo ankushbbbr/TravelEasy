@@ -31,9 +31,14 @@
             android:gravity="center"
             android:id="@+id/transport_duration"/>
     </LinearLayout>
-
-    <TextView
+    <LinearLayout
         android:layout_width="100dp"
         android:layout_height="match_parent"
-        android:id="@+id/transport_price"/>
+        android:id="@+id/fare_linear_layout">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/transport_price"/>
+    </LinearLayout>
+
 </LinearLayout>

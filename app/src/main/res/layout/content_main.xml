@@ -34,7 +34,8 @@
             android:paddingRight="5dp"
             android:visibility="visible"
             android:hint="Train"
-            android:imeOptions="flagNoExtractUi|actionSearch"/>
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:text="NDLS"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +58,8 @@
             android:paddingRight="5dp"
             android:visibility="visible"
             android:hint="Train"
-            android:imeOptions="flagNoExtractUi|actionSearch"/>
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:text="JUC"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,9 +81,9 @@
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
             android:visibility="visible"
-
             android:hint="Flight"
-            android:imeOptions="flagNoExtractUi|actionSearch"/>
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:text="DEL"/>
     </LinearLayout>
 
     <LinearLayout
@@ -104,7 +106,8 @@
             android:paddingRight="5dp"
             android:visibility="visible"
             android:hint="Flight"
-            android:imeOptions="flagNoExtractUi|actionSearch"/>
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:text="ATQ"/>
     </LinearLayout>
 
     <LinearLayout

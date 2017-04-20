@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(MainActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
     private void updateLabel() {
-        String myFormat = "dd-MM";
+        String myFormat = "dd-MM-YYYY";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         dateEditText.setText(sdf.format(myCalendar.getTime()));

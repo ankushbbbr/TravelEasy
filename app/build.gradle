@@ -13,8 +13,8 @@ android {
     }
     buildTypes {
         debug{
-            buildConfigField "String", "RailwayApiKey", "\"deaurvtg\""
-            buildConfigField "String", "RailwayApiKey2", "\"6lcib96q\""
+            buildConfigField "String", "RailwayApiKey2", "\"deaurvtg\""
+            buildConfigField "String", "RailwayApiKey", "\"6lcib96q\""
             minifyEnabled false
             applicationIdSuffix ".debug"
         }
