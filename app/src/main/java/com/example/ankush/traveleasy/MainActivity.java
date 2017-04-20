@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
     private void updateLabel() {
-        String myFormat = "dd-MM-YYYY";
+        String myFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         dateEditText.setText(sdf.format(myCalendar.getTime()));
