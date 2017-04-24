@@ -19,6 +19,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     AutoCompleteTextView destAutoTvTrain;
     AutoCompleteTextView flightSrcEditText;
     AutoCompleteTextView flightDestEditText;
+    RadioGroup flightType;
     boolean isDateSet = false;
     String TAG="MainActivityTag";
     @Override
@@ -156,6 +159,7 @@ public class MainActivity extends AppCompatActivity
         flightDestEditText=(AutoCompleteTextView) findViewById(R.id.to_auto_textbox_flight);
         srcAutoTvTrain = (AutoCompleteTextView) findViewById(R.id.from_auto_textbox_train);
         destAutoTvTrain = (AutoCompleteTextView)findViewById(R.id.to_auto_textbox_train);
+        flightType=(RadioGroup) findViewById(R.id.radio_group_flight);
 
     }
     private void doSearch(){
@@ -164,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         String date=dateEditText.getText().toString();
         String src_flight = flightSrcEditText.getText().toString();
         String dest_flight = flightDestEditText.getText().toString();
-
+        String flightTypeChar="";
         Intent intent = new Intent();
         intent.setClass(MainActivity.this,TransportListActivity.class);
         intent.putExtra(Constants.INTENT_TRAIN_SRC_STATION_CODE,src_train);
@@ -178,6 +182,23 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
             return;
         }
+        int id = flightType.getCheckedRadioButtonId();
+        if(id == -1){
+            Toast.makeText(MainActivity.this, "Please select flight class", Toast.LENGTH_SHORT).show();
+        }else {
+            RadioButton selectedRadioButton = (RadioButton)findViewById(id);
+// do what you want with radioButtonText (save it to database in your case)
+            String radioButtonText = selectedRadioButton.getText().toString();
+
+            if(radioButtonText.matches("Economy")) {
+               flightTypeChar="E";
+
+            }
+            else
+                flightTypeChar="B";
+
+        }
+        intent.putExtra(Constants.FLIGHT_TYPE,flightTypeChar);
         startActivity(intent);
     }
     private void updateLabel() {

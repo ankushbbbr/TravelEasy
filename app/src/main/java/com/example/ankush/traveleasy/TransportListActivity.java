@@ -49,22 +49,23 @@ public class TransportListActivity extends AppCompatActivity {
 //                transportAdapter.selectClassFromDialog(transports.get(position),transportAdapter.vi);
 //            }
 //        });
-        String src_train,dest_train,date,src_flight,dest_flight;
+        String src_train,dest_train,date,src_flight,dest_flight,flight_type;
         Intent intent = getIntent();
         src_train = intent.getStringExtra(Constants.INTENT_TRAIN_SRC_STATION_CODE);
         dest_train = intent.getStringExtra(Constants.INTENT_TRAIN_DEST_STATION_CODE);
         date=intent.getStringExtra(Constants.INTENT_TRAIN_DATE);
         src_flight=intent.getStringExtra(Constants.INTENT_FLIGHT_SRC_IATA_CODE);
         dest_flight=intent.getStringExtra(Constants.INTENT_FLIGHT_DEST_IATA_CODE);
-
+        flight_type=intent.getStringExtra(Constants.FLIGHT_TYPE);
         //Log.i(TAG, "oncreate : source ="+src_train + ", dest = "+dest_train + "date = ,"+date);
         fetchTrainsFromNetwork(src_train,dest_train,date);// date : dd-mm-yyyy
 
         String modDate = date.substring(6)+date.substring(3,5)+date.substring(0,2);  //YYYYMMDD
-        fetchFlightsFromNetwork(src_flight,dest_flight,modDate);
+
+        fetchFlightsFromNetwork(src_flight,dest_flight,modDate,flight_type);
     }
 
-    private void fetchFlightsFromNetwork(String src,String dest,String date){
+    private void fetchFlightsFromNetwork(String src, String dest, String date, final String flighttype){
         final ProgressDialog mp=new ProgressDialog(this);
         mp.setIndeterminate(true);
         mp.setMessage(" Loading ");
@@ -73,8 +74,9 @@ public class TransportListActivity extends AppCompatActivity {
 
         Log.i(TAG, "fetchFlightsFromNetwork: ");
         ApiServiceFlight service= ApiClientFlight.getService();
+       // if(flighttype.matches("E"))
         Call<FlightResponse> call=service.searchFlight(Constants.FLIGHT_API_ID,Constants.FLIGHT_API_KEY,
-                "json",dest,src,date,date,"E","1","0","0","100");
+                "json",dest,src,date,date,flighttype,"1","0","0","100");
         call.enqueue(new Callback<FlightResponse>() {
             @Override
             public void onResponse(Call<FlightResponse> call, Response<FlightResponse> response) {
@@ -91,11 +93,11 @@ public class TransportListActivity extends AppCompatActivity {
                     for(FlightResponse.Data.Flight item :itemlist){
                         Transport t = new Transport();
                         t.type=Constants.TRANSPORT_TYPE_FLIGHT;
-                        t.name=item.FlHash;
+
                         t.number=item.flightno;
                         t.arrivalTime =item.arrtime;
                         t.departureTime =item.deptime;
-
+                        String stop="";
                         String token[]=item.duration.split("h |m");
                         for(int i=0;i<2;i++){
                             if(token[i].length()==1){
@@ -105,15 +107,17 @@ public class TransportListActivity extends AppCompatActivity {
                         t.travelTime =token[0]+":"+token[1];
                         t.source=item.origin;
                         t.destination=item.destination;
-                       /* for(int i=0;i<item.size();i++){
-                            TrainBetweenStationsResponse.Train.Classs c=item.classes.get(i);
-                            if(c.available.equals("Y")){
-                                t.classes.add(c.name);
-                            }
-                        }*/
-                        t.classes.add("E");
+                        if(item.stops.matches("0")){
+                            Log.i(TAG," ehy ");
+                            stop="Non-Stop";
+                        }
+                        else
+                            stop=item.stops+"-Stop";
+
+                        t.classes.add(flighttype);
                         t.fares.add(item.fare.grossamount+"");
                         t.fare = item.fare.grossamount+"";
+                        t.name=item.airline+"   "+item.carrierid+item.flightcode+" "+stop;
                         Log.i(TAG, "flight: "+t.name);
                         transports.add(t);
                     }

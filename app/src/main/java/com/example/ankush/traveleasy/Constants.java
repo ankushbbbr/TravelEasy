@@ -20,6 +20,8 @@ public class Constants {
     public static final String RAILWAY_API_BASE_URL = "http://api.railwayapi.com/";
     public static final String RAILWAY_API_KEY="Use_Your_own_key";
 
+    public static final String FLIGHT_TYPE = "flight_type";
+
     public static final String FLIGHT_API_BASE_URL = "https://developer.goibibo.com/";
     public static final String FLIGHT_API_KEY="5dbe77b3ce284fe43c3fce7da25dfe95";
     public static final String FLIGHT_API_ID="75ebdc31";

@@ -109,12 +109,6 @@ public class TransportAdapter extends ArrayAdapter<Transport>
                                     //Log.i("TrainFareTag", "onResponse: " + f.classCode + "  " + f.fare);
                                 }
                                 selectClassFromDialog(mTransports.get(position),vh.fareLayout);
-//                                try {
-//                                    mTransports.get(position).fare = mTransports.get(position).fares.get(0);
-//                                }catch (IndexOutOfBoundsException e){
-//                                    mTransports.get(position).fare = "0";
-//                                }
-//                                setUpFareTextView(vh.fareLayout,mTransports.get(position).fare);
                             }
 
                             @Override
@@ -130,7 +124,20 @@ public class TransportAdapter extends ArrayAdapter<Transport>
             }
         }
         else{
-            setUpFareTextView(vh.fareLayout,curr.fare);
+                Button getFareButton = new Button(mContext);
+                getFareButton.setText("GET\nFARE");
+                vh.fareLayout.removeAllViews();
+                vh.fareLayout.addView(getFareButton);
+                getFareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Transport flight = mTransports.get(position);
+                        setUpFareTextView(vh.fareLayout,flight.fare);
+
+                    }
+                });
+
         }
         return convertView;
     }
@@ -141,16 +148,12 @@ public class TransportAdapter extends ArrayAdapter<Transport>
                 inflate(R.layout.train_fare_dialog,null, false);
         builder.setView(dialogView);
         final RadioGroup radioGroup = (RadioGroup)dialogView.findViewById(R.id.radio_group_train_class);
-        //TextView tv = new TextView(mContext);
-        //LinearLayout dialogLayout = (LinearLayout) dialogView.findViewById(R.id.dialog_layout);
-        //dialogLayout.addView(tv);
         Log.i(TAG, "selectClassFromDialog: "+train.classes.size());
         for (int i = 0; i < train.classes.size(); i++) {
             RadioButton rdButton = new RadioButton(mContext);
             rdButton.setId(i);
             rdButton.setText(train.classes.get(i));
             radioGroup.addView(rdButton);
-            //tv.setText(tv.getText()+train.classes.get(i));
             Log.i(TAG, "selectClassFromDialog: "+train.classes.get(i));
         }
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

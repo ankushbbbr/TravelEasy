@@ -17,13 +17,20 @@ public class FlightResponse {
             public String destination;
             public String duration;
             public String flightno;
-            public String FlHash;
+            public String airline;
+            public String flightcode;
+            public String carrierid;
             public String deptime;
+            public String stops;
             public String arrtime;
             public Fare fare;
+            //public OnwardFlights onwardflights;
             public class Fare{
                 public int grossamount;
             }
+//            public class OnwardFlights{
+//
+//            }
         }
         public ArrayList<Flight> getreturn(){
             return returnflights;
