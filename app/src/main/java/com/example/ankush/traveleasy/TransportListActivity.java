@@ -117,7 +117,7 @@ public class TransportListActivity extends AppCompatActivity {
                         t.classes.add(flighttype);
                         t.fares.add(item.fare.grossamount+"");
                         t.fare = item.fare.grossamount+"";
-                        t.name=item.airline+"   "+item.carrierid+item.flightcode+" "+stop;
+                        t.name=item.airline+"   "+item.carrierid+item.flightcode+" \n"+stop;
                         Log.i(TAG, "flight: "+t.name);
                         transports.add(t);
                     }
