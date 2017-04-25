@@ -21,6 +21,7 @@ public class Transport {
     String departureTime;
     String arrivalTime;
     String fare;
+    boolean flag;
     public Transport(){
         classes = new ArrayList<>();
         fares = new ArrayList<>();

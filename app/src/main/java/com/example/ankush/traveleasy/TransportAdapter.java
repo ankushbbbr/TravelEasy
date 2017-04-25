@@ -123,8 +123,10 @@ public class TransportAdapter extends ArrayAdapter<Transport>
                 setUpFareTextView(vh.fareLayout,curr.fare);
             }
         }
-        else{
+        else {
+            if (curr.flag == false) {
                 Button getFareButton = new Button(mContext);
+
                 getFareButton.setText("GET\nFARE");
                 vh.fareLayout.removeAllViews();
                 vh.fareLayout.addView(getFareButton);
@@ -133,11 +135,15 @@ public class TransportAdapter extends ArrayAdapter<Transport>
                     public void onClick(View v) {
 
                         Transport flight = mTransports.get(position);
-                        setUpFareTextView(vh.fareLayout,flight.fare);
-
+//                          mTransports.get(position).fares.add(flight.fare);
+                        setUpFareTextView(vh.fareLayout, flight.fare);
+                        mTransports.get(position).flag = true;
                     }
                 });
 
+            }
+            else
+                setUpFareTextView(vh.fareLayout,curr.fare);
         }
         return convertView;
     }
