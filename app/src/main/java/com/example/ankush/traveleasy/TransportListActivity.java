@@ -83,8 +83,8 @@ public class TransportListActivity extends AppCompatActivity {
                 // FlightResponse.Data data = FlightResponse.getData();
                 //ArrayList<FlightResponse.Data.Flight> retflights=data.getreturn();
                 Log.i(TAG, response.raw().request().url()+"");
-                     if(mp.isShowing())
-                         mp.dismiss();
+                if(mp.isShowing())
+                    mp.dismiss();
                 FlightResponse.Data maindata=response.body().data;
                 ArrayList<FlightResponse.Data.Flight> itemlist=maindata.returnflights;
                 if(itemlist==null)
@@ -132,7 +132,10 @@ public class TransportListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<FlightResponse> call, Throwable t) {
-
+                if(mp.isShowing())
+                    mp.dismiss();
+                Toast.makeText(TransportListActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

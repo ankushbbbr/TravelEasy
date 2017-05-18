@@ -1,6 +1,7 @@
 package com.example.ankush.traveleasy;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -62,14 +64,14 @@ public class MainActivity extends AppCompatActivity
         myCalendar = Calendar.getInstance();
         srcAutoTvTrain.setThreshold(2);
         srcAutoTvTrain.setAdapter(new StationAutoCompleteAdapter(this,R.layout.suggestion_dropdown));
-//        srcAutoTvTrain.setLoadingIndicator(
-//                (android.widget.ProgressBar) findViewById(R.id.pb_loading_indicator));
+
         srcAutoTvTrain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String val= (String) adapterView.getItemAtPosition(position);
                 String stnCode= val.split(":")[0];
                 srcAutoTvTrain.setText(stnCode);
+                hideKeyoard();
             }
         });
         destAutoTvTrain.setThreshold(2);
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity
                 String val= (String) adapterView.getItemAtPosition(position);
                 String stnCode= val.split(":")[0];
                 destAutoTvTrain.setText(stnCode);
+                hideKeyoard();
             }
         });
         flightSrcEditText.setThreshold(1);
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity
                 String val= (String) adapterView.getItemAtPosition(position);
                 String stnCode= val.split(":")[0];
                 flightSrcEditText.setText(stnCode);
+                hideKeyoard();
             }
         });
         flightDestEditText.setThreshold(1);
@@ -100,16 +104,15 @@ public class MainActivity extends AppCompatActivity
                 String val= (String) adapterView.getItemAtPosition(position);
                 String stnCode= val.split(":")[0];
                 flightDestEditText.setText(stnCode);
+                hideKeyoard();
             }
         });
-
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -187,16 +190,13 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "Please select flight class", Toast.LENGTH_SHORT).show();
         }else {
             RadioButton selectedRadioButton = (RadioButton)findViewById(id);
-// do what you want with radioButtonText (save it to database in your case)
             String radioButtonText = selectedRadioButton.getText().toString();
 
             if(radioButtonText.matches("Economy")) {
                flightTypeChar="E";
-
             }
             else
                 flightTypeChar="B";
-
         }
         intent.putExtra(Constants.FLIGHT_TYPE,flightTypeChar);
         startActivity(intent);
@@ -216,7 +216,12 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+    void hideKeyoard(){
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
