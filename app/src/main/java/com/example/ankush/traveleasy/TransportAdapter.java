@@ -126,7 +126,6 @@ public class TransportAdapter extends ArrayAdapter<Transport>
         else {
             if (curr.flag == false) {
                 Button getFareButton = new Button(mContext);
-
                 getFareButton.setText("GET\nFARE");
                 vh.fareLayout.removeAllViews();
                 vh.fareLayout.addView(getFareButton);

@@ -13,6 +13,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.ankush.traveleasy.MainActivity"
     tools:showIn="@layout/app_bar_main">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Train - "
+        android:textSize="23dp"
+        android:textColor="@color/colorAccent"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -33,9 +39,9 @@
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
             android:visibility="visible"
-            android:hint="Train"
+            android:hint=""
             android:imeOptions="flagNoExtractUi|actionSearch"
-            android:text="NDLS"/>
+            android:text=""/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,10 +63,16 @@
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
             android:visibility="visible"
-            android:hint="Train"
+            android:hint=""
             android:imeOptions="flagNoExtractUi|actionSearch"
-            android:text="JUC"/>
+            android:text=""/>
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flight - "
+        android:textSize="23dp"
+        android:textColor="@color/colorAccent"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -81,9 +93,9 @@
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
             android:visibility="visible"
-            android:hint="Flight"
+            android:hint=""
             android:imeOptions="flagNoExtractUi|actionSearch"
-            android:text="DEL"/>
+            android:text=""/>
     </LinearLayout>
 
     <LinearLayout
@@ -105,9 +117,9 @@
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
             android:visibility="visible"
-            android:hint="Flight"
+            android:hint=""
             android:imeOptions="flagNoExtractUi|actionSearch"
-            android:text="ATQ"/>
+            android:text=""/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

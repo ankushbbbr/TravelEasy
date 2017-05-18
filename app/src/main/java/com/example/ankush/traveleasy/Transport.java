@@ -21,7 +21,7 @@ public class Transport {
     String departureTime;
     String arrivalTime;
     String fare;
-    boolean flag;
+    boolean flag; //is flight fare set
     public Transport(){
         classes = new ArrayList<>();
         fares = new ArrayList<>();
