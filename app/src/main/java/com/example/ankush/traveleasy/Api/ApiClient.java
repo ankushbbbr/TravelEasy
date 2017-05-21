@@ -10,13 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    static ApiRailwayService service;
+    static ApiServiceRailway service;
 
-    public static ApiRailwayService getService() {
+    public static ApiServiceRailway getService() {
         if(service==null){
             Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.RAILWAY_API_BASE_URL).
                     addConverterFactory(GsonConverterFactory.create()).build();
-            service =retrofit.create(ApiRailwayService.class);
+            service =retrofit.create(ApiServiceRailway.class);
         }
         return service;
     }

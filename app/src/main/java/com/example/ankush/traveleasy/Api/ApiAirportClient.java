@@ -10,13 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiAirportClient {
-    static ApiAirportService service;
+    static ApiServiceAirport service;
 
-    public static ApiAirportService getService() {
+    public static ApiServiceAirport getService() {
         if(service==null){
             Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.IATA_API_BASE_URL).
                     addConverterFactory(GsonConverterFactory.create()).build();
-            service = retrofit.create(ApiAirportService.class);
+            service = retrofit.create(ApiServiceAirport.class);
         }
         return service;
     }

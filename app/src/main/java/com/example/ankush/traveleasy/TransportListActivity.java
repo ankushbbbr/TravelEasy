@@ -7,23 +7,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ankush.traveleasy.Api.ApiClient;
 import com.example.ankush.traveleasy.Api.ApiClientFlight;
-import com.example.ankush.traveleasy.Api.ApiRailwayService;
+import com.example.ankush.traveleasy.Api.ApiServiceRailway;
 import com.example.ankush.traveleasy.Api.ApiServiceFlight;
 import com.example.ankush.traveleasy.ApiResponse.FlightResponse;
 import com.example.ankush.traveleasy.ApiResponse.TrainBetweenStationsResponse;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,11 +67,10 @@ public class TransportListActivity extends AppCompatActivity {
         mp.setMessage(" Loading ");
         mp.show();
 
-
         Log.i(TAG, "fetchFlightsFromNetwork: ");
         ApiServiceFlight service= ApiClientFlight.getService();
        // if(flighttype.matches("E"))
-        Call<FlightResponse> call=service.searchFlight(Constants.FLIGHT_API_ID,Constants.FLIGHT_API_KEY,
+        Call<FlightResponse> call=service.searchFlight(BuildConfig.FlightApiID,BuildConfig.FlightApiKey,
                 "json",dest,src,date,date,flighttype,"1","0","0","100");
         call.enqueue(new Callback<FlightResponse>() {
             @Override
@@ -127,7 +122,6 @@ public class TransportListActivity extends AppCompatActivity {
                     }
                     transportAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -143,7 +137,7 @@ public class TransportListActivity extends AppCompatActivity {
     private void fetchTrainsFromNetwork(String src,String dest,final String date) {
         Log.i(TAG, "fetchTrainsFromNetwork: ");
         //Log.i(TAG, "source ="+src + ", dest = "+dest + "date = ,"+date);
-        ApiRailwayService service = ApiClient.getService();
+        ApiServiceRailway service = ApiClient.getService();
         Call<TrainBetweenStationsResponse> call=service.searchTrainBetween(src,dest,date.substring(0,5),BuildConfig.RailwayApiKey);
         call.enqueue(new Callback<TrainBetweenStationsResponse>() {
             @Override

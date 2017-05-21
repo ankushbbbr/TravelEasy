@@ -14,7 +14,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.ankush.traveleasy.Api.ApiClient;
-import com.example.ankush.traveleasy.Api.ApiRailwayService;
+import com.example.ankush.traveleasy.Api.ApiServiceRailway;
 import com.example.ankush.traveleasy.ApiResponse.StationAutoCompleteResponse;
 import com.example.ankush.traveleasy.BuildConfig;
 import com.example.ankush.traveleasy.R;
@@ -99,7 +99,7 @@ public class StationAutoCompleteAdapter extends ArrayAdapter<String> implements 
 
     private ArrayList<String> findStationsFromNetwork(Context context, String station_name) {
         final ArrayList<String> retVal = new ArrayList<>();
-        ApiRailwayService service = ApiClient.getService();
+        ApiServiceRailway service = ApiClient.getService();
         Call<StationAutoCompleteResponse> call=service.getStationSuggestions(station_name, BuildConfig.RailwayApiKey);
         call.enqueue(new Callback<StationAutoCompleteResponse>() {
             @Override

@@ -14,8 +14,9 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.ankush.traveleasy.Api.ApiAirportClient;
-import com.example.ankush.traveleasy.Api.ApiAirportService;
+import com.example.ankush.traveleasy.Api.ApiServiceAirport;
 import com.example.ankush.traveleasy.ApiResponse.AirportAutoCompleteResponse;
+import com.example.ankush.traveleasy.BuildConfig;
 import com.example.ankush.traveleasy.Constants;
 import com.example.ankush.traveleasy.R;
 
@@ -100,8 +101,8 @@ public class AirportAutoCompleteAdapter extends ArrayAdapter<String> implements 
     private ArrayList<String> findAirports(Context context, String station_name) {
         Log.i(TAG, "findAirports: "+station_name);
         final ArrayList<String> retVal = new ArrayList<>();
-        ApiAirportService service = ApiAirportClient.getService();
-        Call<ArrayList<AirportAutoCompleteResponse>> call=service.getAirportSuggestions(Constants.IATA_API_KEY,station_name,"IN");
+        ApiServiceAirport service = ApiAirportClient.getService();
+        Call<ArrayList<AirportAutoCompleteResponse>> call=service.getAirportSuggestions(BuildConfig.IATAApiKey,station_name,"IN");
         call.enqueue(new Callback<ArrayList<AirportAutoCompleteResponse>>() {
 
             @Override

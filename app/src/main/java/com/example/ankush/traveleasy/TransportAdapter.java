@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ankush.traveleasy.Api.ApiClient;
-import com.example.ankush.traveleasy.Api.ApiRailwayService;
+import com.example.ankush.traveleasy.Api.ApiServiceRailway;
 import com.example.ankush.traveleasy.ApiResponse.TrainFareResponse;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class TransportAdapter extends ArrayAdapter<Transport>
                 getFareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ApiRailwayService service = ApiClient.getService();
+                        ApiServiceRailway service = ApiClient.getService();
                         Transport train = mTransports.get(position);
                         Call<TrainFareResponse> call = service.getTrainFare(train.number, train.srcCode, train.destCode,
                                 train.date, BuildConfig.RailwayApiKey);

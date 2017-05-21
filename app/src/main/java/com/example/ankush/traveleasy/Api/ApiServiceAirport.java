@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Created by Ann Mary George on 24-Jan-17.
  */
 
-public interface ApiAirportService {
+public interface ApiServiceAirport {
     @GET("v1.2/airports/autocomplete")
     Call<ArrayList<AirportAutoCompleteResponse>> getAirportSuggestions(@Query("apikey") String apikey,
                                                                        @Query("term") String term,
